@@ -2,7 +2,7 @@
 -- Used to quickly generate insert, update, delete statements
 
 declare @tableName nvarchar(max)
-set @tableName = 'kbdetail'
+set @tableName = 'TableName'
 
 select
 case ordinal_position 
