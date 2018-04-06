@@ -2,7 +2,7 @@
 -- Used to quickly generate insert, update, delete statements
 
 declare @tableName nvarchar(max)
-set @tableName = 'TableName'
+set @tableName = 'kbdetail'
 
 select
 case ordinal_position 
@@ -12,6 +12,21 @@ case ordinal_position
 + COLUMN_NAME + ' ' +  
 case data_type
 	when 'nvarchar' then cast(DATA_TYPE as nvarchar(max)) + '(' + cast(CHARACTER_MAXIMUM_LENGTH as nvarchar(max)) + ')'
+	when 'varchar' then cast(DATA_TYPE as nvarchar(max)) + '(' + cast(CHARACTER_MAXIMUM_LENGTH as nvarchar(max)) + ')'
+	when 'char' then cast(DATA_TYPE as nvarchar(max)) + '(' + cast(CHARACTER_MAXIMUM_LENGTH as nvarchar(max)) + ')'
+	when 'binary' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + cast(CHARACTER_MAXIMUM_LENGTH AS nvarchar(max)) + ')'
+	when 'char' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + cast(CHARACTER_MAXIMUM_LENGTH AS nvarchar(max)) + ')'
+	when 'datetime2' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + CAST(DATETIME_PRECISION as nvarchar(max)) + ')'
+	when 'datetimeoffset' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + CAST(DATETIME_PRECISION as nvarchar(max)) + ')'
+	when 'decimal' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + cast(NUMERIC_PRECISION as nvarchar(max)) + ',' + cast(NUMERIC_SCALE as nvarchar(max)) + ')'
+	when 'nchar' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + cast(CHARACTER_MAXIMUM_LENGTH AS nvarchar(max)) + ')'
+	when 'numeric' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + cast(NUMERIC_PRECISION as nvarchar(max)) + ',' + cast(NUMERIC_SCALE as nvarchar(max)) + ')'
+	when 'nvarchar' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + cast(CHARACTER_MAXIMUM_LENGTH AS nvarchar(max)) + ')'
+	when 'time' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + CAST(DATETIME_PRECISION as nvarchar(max)) + ')'
+	when 'varbinary' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + cast(CHARACTER_MAXIMUM_LENGTH AS nvarchar(max)) + ')'
+	when 'varchar' then COLUMN_NAME + ' ' + DATA_TYPE + '(' + cast(CHARACTER_MAXIMUM_LENGTH AS nvarchar(max)) + ')'
+	-- Most standard data types follow the pattern in the other section.  
+    -- Non-standard datatypes include: binary, char, datetime2, datetimeoffset, decimal, nvchar, numeric, nvarchar, time, varbinary, and varchar
 	else
 	cast(DATA_TYPE as nvarchar(max))
 	end 'dub'
